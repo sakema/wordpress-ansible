@@ -1,0 +1,36 @@
+---
+- name: WordPress with default theme and no dummy data.
+
+  hosts: wordpress
+  remote_user: root
+
+  vars:
+    deploy_user: www-data
+    deploy_group: www-data
+
+    www_root: /var/www
+
+    #Project setting
+    project_name: "healthyboat"
+    wordpress_home_url: http://healthyboat.ru
+    wordpress_site_title: "{{ project_name }}"
+    remote_wordpress_dir: "{{ www_root }}/{{ project_name }}"
+
+    #MySQL setting
+    mysql_root_user: admin
+    mysql_root_password: "[1B/Q]1258Dee]w@m!h9WL4O=v,4tU`}4b/YFbu.YURN7<@ygi5pJ&msC8ZXg3O?"
+
+    #WP admin setting
+    wordpress_admin_user: admin
+    wordpress_admin_user_pass: "4MyFXzFWHqYtXIGj"
+    wordpress_admin_email: admin@sakema.net
+
+    #WP DB setting
+    wordpress_db_name: "{{ project_name }}"
+    wordpress_db_user: "{{ project_name }}"
+    wordpress_db_user_pass: "C5hpDoWPXiYtCZQF"
+    wordpress_db_prefix: wp_
+
+  roles:
+    - wordpress-reset
+    - wordpress-install
