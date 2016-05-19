@@ -1,0 +1,7 @@
+.DS_Store
+
+# Secret passwords and sensitive data
+group_vars/*/main.yml
+
+# SSH keys
+playbook/keys

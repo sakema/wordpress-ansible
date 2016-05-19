@@ -1,0 +1,13 @@
+---
+- hosts: 'all'
+  remote_user: 'root'
+
+  vars:
+    # Пользователь, от лица которого будет происходит деплой
+    user: 'root'
+    # Домашняя директория
+    home: '/root'
+
+  tasks:
+    - name: 'account | copy ssh public key'
+      copy: 'src=keys/authorized_keys  dest={{ home }}/.ssh/authorized_keys owner={{ user }} group={{ user }} mode=0644'

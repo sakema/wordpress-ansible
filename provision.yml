@@ -1,0 +1,11 @@
+---
+- hosts: wordpress
+  user: root
+
+  roles:
+   - common
+   - nginx
+   - php
+   - mariadb
+   - wp-cli
+   - memcashed
