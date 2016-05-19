@@ -1,0 +1,7 @@
+---
+- name: WordPress with default theme and no dummy data.
+  hosts: wordpress
+
+  roles:
+    - wordpress-reset
+    - wordpress-install
