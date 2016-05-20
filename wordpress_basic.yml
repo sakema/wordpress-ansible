@@ -1,6 +1,6 @@
 ---
-- name: WordPress with default theme and no dummy data.
-  hosts: wordpress
+- hosts: wordpress
+  user: root
 
   roles:
     - wordpress-reset

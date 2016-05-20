@@ -39,6 +39,6 @@
   lineinfile:
     dest: /etc/nginx/nginx.conf
     regexp: "^user"
-    line: "user {{ deploy_user }};"
+    line: "user {{ remote_deploy_user }};"
     state: present
   notify: restart nginx

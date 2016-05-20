@@ -29,7 +29,7 @@
   lineinfile:
     dest: /etc/php/7.0/fpm/pool.d/www.conf
     regexp: "^user"
-    line: "user = {{ deploy_user }}"
+    line: "user = {{ remote_deploy_user }}"
     state: present
   notify: restart php
 
@@ -37,7 +37,7 @@
   lineinfile:
     dest: /etc/php/7.0/fpm/pool.d/www.conf
     regexp: "^group"
-    line: "group = {{ deploy_group }}"
+    line: "group = {{ remote_deploy_group }}"
     state: present
   notify: restart php
 
@@ -45,7 +45,7 @@
   lineinfile:
     dest: /etc/php/7.0/fpm/pool.d/www.conf
     regexp: "^listen\\.owner"
-    line: "listen.owner = {{ deploy_user }}"
+    line: "listen.owner = {{ remote_deploy_user }}"
     state: present
   notify: restart php
 
@@ -53,7 +53,7 @@
   lineinfile:
     dest: /etc/php/7.0/fpm/pool.d/www.conf
     regexp: "^listen\\.group"
-    line: "listen.group = {{ deploy_group }}"
+    line: "listen.group = {{ remote_deploy_group }}"
     state: present
   notify: restart php
 

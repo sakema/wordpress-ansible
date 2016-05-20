@@ -1,4 +1,5 @@
 .DS_Store
+*.retry
 
 # Secret passwords and sensitive data
 group_vars/*/main.yml
