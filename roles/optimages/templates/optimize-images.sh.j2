@@ -1,0 +1,4 @@
+#!/bin/bash
+find /var/www/{{ wordpress_sites }} -iname '*.png' -print0 | xargs -0 optipng -o7 -preserve
+find /var/www/{{ wordpress_sites }} -iname '*.jpg' -print0 | \
+xargs -0 jpegoptim --max=90 --strip-all --preserve --totals

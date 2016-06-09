@@ -9,3 +9,5 @@
    - mariadb
    - wp-cli
    - wordpress-install
+   - ssmtp
+   - optimages

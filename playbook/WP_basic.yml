@@ -4,4 +4,5 @@
 
   roles:
 #    - wordpress-reset
-    - wordpress-install
+#    - wordpress-install
+    - optimages

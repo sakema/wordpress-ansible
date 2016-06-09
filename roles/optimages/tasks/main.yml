@@ -1,0 +1,15 @@
+---
+- name: Install Jpegoptim
+  apt:
+    name: jpegoptim
+    state: present
+
+- name: Install Jpegoptim
+  apt:
+    name: optipng
+    state: present
+
+- name: Copy Builk Script
+  template:
+    src: optimize-images.sh.j2
+    dest: /root/optimize-images.sh
