@@ -11,3 +11,6 @@
   tasks:
     - name: 'account | copy ssh public key'
       copy: 'src=keys/authorized_keys  dest={{ home }}/.ssh/authorized_keys owner={{ user }} group={{ user }} mode=0644'
+
+    - name: Creating pub SSH keys
+      command: ssh-keygen -N '' -f /root/.ssh/id_rsa

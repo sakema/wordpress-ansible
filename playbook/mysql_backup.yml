@@ -1,0 +1,7 @@
+---
+- hosts: wordpress
+  user: root
+
+  tasks:
+  - name: Backup Database
+    mysql_db: name="{{ wordpress_db_name }}" login_user="root" login_password="{{ mysql_root_password }}" state=dump target=/tmp/{{ wordpress_db_name }}-{{ansible_date_time.date}}.sql

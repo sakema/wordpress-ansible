@@ -3,5 +3,5 @@
   user: root
 
   roles:
-    - wordpress-reset
+#    - wordpress-reset
     - wordpress-install

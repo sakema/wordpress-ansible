@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+
+root={{ ssmtp_root }}
+FromLineOverride={{ ssmpt_from_line_override }}
+
+mailhub={{ ssmtp_mailhub }}
+RewriteDomain={{ ssmpt_rewrite_domain }}
+Hostname={{ ssmtp_hostname }}
+UseSTARTTLS={{ ssmpt_use_start_tls }}
+UseTLS={{ ssmpt_use_tls }}
+AuthUser={{ ssmtp_auth_user }}
+AuthPass={{ ssmtp_auth_pass }}
+#AuthMethod={{ ssmpt_auth_method }}
+Debug={{ ssmpt_debug }}

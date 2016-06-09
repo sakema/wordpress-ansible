@@ -1,0 +1,41 @@
+server {
+  # Ports to listen on
+  listen 80;
+
+  # Server name to listen for
+  server_name {{ wordpress_home_url_non_http }};
+
+  # Path to document root
+  root {{ www_root }}/{{ wordpress_sites }};
+
+  # File to be used as index
+  index index.php;
+
+  # Overrides logs defined in nginx.conf, allows per site logs.
+  access_log   {{ www_root }}/logs/{{ wordpress_sites }}.access.log;
+  error_log    {{ www_root }}/logs/{{ wordpress_sites }}.error.log;
+
+  # Default server block rules
+  include global/server/defaults.conf;
+
+  location / {
+    try_files $uri $uri/ /index.php?$args;
+  }
+
+  location ~ \.php$ {
+    try_files $uri =404;
+    include global/fastcgi-params.conf;
+
+    # Change socket if using PHP pools or PHP 5
+    fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+    #fastcgi_pass unix:/var/run/php5-fpm.sock;
+  }
+}
+
+# Redirect www to non-www
+server {
+  listen 80;
+  server_name www.{{ wordpress_home_url_non_http }};
+
+  return 301 $scheme://{{ wordpress_home_url_non_http }}$request_uri;
+}

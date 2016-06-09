@@ -84,3 +84,79 @@
   remote_user: "{{ remote_deploy_user }}"
   tags:
     - wp-install
+
+- name: Is Site Log directory created?
+  stat: path="{{ www_root }}/logs"
+  register: log_dir
+  tags:
+    - wp-install
+
+- name: Create Site Log directory
+  file:
+    path: "{{ www_root }}/logs/"
+    owner: "{{ remote_deploy_user }}"
+    group: "{{ remote_deploy_group }}"
+    mode: 0755
+    state: directory
+  when: log_dir.stat.isdir is not defined
+  tags:
+    - wp-install
+
+- name: Create WordPress configuration for Nginx
+  template:
+    src: "wordpress-site.conf.j2"
+    dest: "{{ nginx_path }}/sites-available/{{ wordpress_sites }}.conf"
+  notify: reload nginx
+  tags:
+    - wp-install
+
+- name: Enable WordPress site
+  file:
+    src: "{{ nginx_path }}/sites-available/{{ wordpress_sites }}.conf"
+    dest: "{{ nginx_path }}/sites-enabled/{{ wordpress_sites }}.conf"
+    owner: root
+    group: root
+    state: link
+  notify: reload nginx
+  tags:
+    - wp-install
+
+- name: Check WP theme exist
+  stat: path="{{ remote_wordpress_dir }}/wp-content/themes/.git"
+  register: git_theme_exists
+  tags:
+    - theme-install
+
+- name: Clone WP theme
+  git:
+    repo: "{{ wordpress_git_url }}"
+    dest: "{{ remote_wordpress_dir }}/wp-content/themes/{{ wordpress_sites }}"
+    version: master
+    accept_hostkey: yes
+    force: yes
+  when: not git_theme_exists.stat.exists
+  tags:
+    - theme-install
+
+- name: theme install and activate
+  command: wp theme activate "{{ wordpress_sites }}" --path="{{ remote_wordpress_dir }}"
+          --allow-root
+  ignore_errors: yes
+  when: not git_theme_exists.stat.exists
+  tags:
+    - theme-install
+
+- name: Change owner for Wordpress to be www-data user group
+  command: chown -R "{{ remote_deploy_user }}":"{{ remote_deploy_group }}" "{{ www_root }}"
+  tags:
+    - wp-permission
+
+- name: Change permission for all Wordpress directory
+  command: find "{{ www_root }}" -type d -exec chmod 755 {} \;
+  tags:
+    - wp-permission
+
+- name: Change permission for all Wordpress files
+  command: find "{{ www_root }}" -type f -exec chmod 644 {} \;
+  tags:
+    - wp-permission

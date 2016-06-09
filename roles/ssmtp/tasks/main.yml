@@ -1,0 +1,40 @@
+---
+
+
+- name: Install ssmtp
+  apt:
+    name: ssmtp
+    state: present
+
+- name: Create simlink to /usr/bin/mail
+  file:
+    src: "/usr/sbin/ssmtp"
+    dest: "/usr/bin/mail"
+    owner: root
+    group: root
+    state: link
+
+- name: ssmtp configuration
+  template:
+    src: ssmtp.conf.j2
+    dest: /etc/ssmtp/ssmtp.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Set up revaliases
+  template:
+    src: revaliases.j2
+    dest: /etc/ssmtp/revaliases
+
+- name: Set PHP send mail path
+  lineinfile:
+    dest: /etc/php/7.0/fpm/php.ini
+    regexp: "^sendmail_path"
+    line: "sendmail_path = /usr/sbin/ssmtp -t"
+    state: present
+
+- name: restart php
+  service:
+    name: php7.0-fpm
+    state: restarted

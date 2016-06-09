@@ -1,0 +1,45 @@
+---
+- hosts: wordpress
+  user: root
+
+  tasks:
+  - name: Remove Nginx conf file
+    file:
+      path: "{{ nginx_path }}/sites-available/{{ wordpress_sites }}.conf"
+      state: absent
+    tags:
+      - wp-change-domen
+
+  - name: Rewrite WordPress configuration for Nginx
+    template:
+      src: "../roles/wordpress-install/templates/wordpress-site.conf.j2"
+      dest: "{{ nginx_path }}/sites-available/{{ wordpress_sites }}.conf"
+    tags:
+      - wp-change-domen
+
+  - name: Enable WordPress site
+    file:
+      src: "{{ nginx_path }}/sites-available/{{ wordpress_sites }}.conf"
+      dest: "{{ nginx_path }}/sites-enabled/{{ wordpress_sites }}.conf"
+      owner: root
+      group: root
+      state: link
+    tags:
+      - wp-change-domen
+      
+  - name: restart nginx
+    service: name=nginx state=restarted
+
+  - name: wp update setting home
+    command: wp option update home "{{ wordpress_home_url }}" --path="{{ remote_wordpress_dir }}"
+            --allow-root
+    ignore_errors: yes
+    tags:
+      - wp-change-domen
+
+  - name: wp update setting siteurl
+    command: wp option update siteurl "{{ wordpress_home_url }}" --path="{{ remote_wordpress_dir }}"
+            --allow-root
+    ignore_errors: yes
+    tags:
+      - wp-change-domen

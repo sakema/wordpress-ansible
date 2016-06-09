@@ -1,0 +1,6 @@
+---
+- hosts: wordpress
+  user: root
+
+  roles:
+    - ssmtp
