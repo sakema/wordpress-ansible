@@ -106,9 +106,9 @@
   template:
     src: "wordpress-site.conf.j2"
     dest: "{{ nginx_path }}/sites-available/{{ wordpress_sites }}.conf"
-  notify: reload nginx
+  notify: restart nginx
   tags:
-    - wp-install
+    - wp-install-nginx
 
 - name: Enable WordPress site
   file:
@@ -117,9 +117,9 @@
     owner: root
     group: root
     state: link
-  notify: reload nginx
+  notify: restart nginx
   tags:
-    - wp-install
+    - wp-install-nginx
 
 - name: Check WP theme exist
   stat: path="{{ remote_wordpress_dir }}/wp-content/themes/.git"

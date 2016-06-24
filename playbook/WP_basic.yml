@@ -1,8 +1,11 @@
 ---
-- hosts: wordpress
+- hosts: all
   user: root
 
   roles:
 #    - wordpress-reset
 #    - wordpress-install
-    - optimages
+#    - optimages
+#    - common
+#    - memcached
+#    - speedpage

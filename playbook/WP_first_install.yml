@@ -1,5 +1,5 @@
 ---
-- hosts: wordpress
+- hosts: all
   user: root
 
   roles:
@@ -9,5 +9,5 @@
    - mariadb
    - wp-cli
    - wordpress-install
-   - ssmtp
+#   - ssmtp
    - optimages

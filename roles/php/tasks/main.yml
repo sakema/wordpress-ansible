@@ -2,6 +2,8 @@
 - name: Add PHP repo
   apt_repository:
     repo: ppa:ondrej/php
+  tags:
+    - php
 
 - name: Install PHP
   apt:
@@ -9,11 +11,12 @@
     state: present
     force: yes
     update_cache: yes
+    install_recommends: yes
   with_items:
   - php7.0-cli
   - php7.0-common
   - php7.0-curl
-  - php7.0-dev
+#  - php7.0-dev
   - php7.0-fpm
   - php7.0-gd
   - php7.0-mbstring
@@ -23,7 +26,8 @@
   - php7.0-xml
   - php7.0-xmlrpc
   - php7.0-zip
-  - php-redis
+  tags:
+    - php
 
 - name: Set PHP user
   lineinfile:
@@ -32,6 +36,8 @@
     line: "user = {{ remote_deploy_user }}"
     state: present
   notify: restart php
+  tags:
+    - php
 
 - name: Set PHP group
   lineinfile:
@@ -40,6 +46,8 @@
     line: "group = {{ remote_deploy_group }}"
     state: present
   notify: restart php
+  tags:
+    - php
 
 - name: Set PHP listen owner
   lineinfile:
@@ -48,6 +56,8 @@
     line: "listen.owner = {{ remote_deploy_user }}"
     state: present
   notify: restart php
+  tags:
+    - php
 
 - name: Set PHP listen group
   lineinfile:
@@ -56,6 +66,8 @@
     line: "listen.group = {{ remote_deploy_group }}"
     state: present
   notify: restart php
+  tags:
+    - php
 
 - name: Set PHP upload max filesize
   lineinfile:
@@ -63,7 +75,9 @@
     regexp: "^upload_max_filesize"
     line: "upload_max_filesize = 128M"
     state: present
-  notify: reload php
+  notify: restart php
+  tags:
+    - php
 
 - name: Set PHP post max filesize
   lineinfile:
@@ -71,4 +85,6 @@
     regexp: "^post_max_size"
     line: "post_max_size = 128M"
     state: present
-  notify: reload php
+  notify: restart php
+  tags:
+    - php
