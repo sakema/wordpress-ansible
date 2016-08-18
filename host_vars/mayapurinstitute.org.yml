@@ -1,0 +1,19 @@
+---
+#Project setting
+wordpress_sites: "mayapurinstitute.org"
+wordpress_home_url: "http://new.mayapurinstitute.org"
+wordpress_home_url_non_http: "new.mayapurinstitute.org"
+wordpress_site_title: "{{ wordpress_sites }}"
+remote_wordpress_dir: "{{ www_root }}/{{ wordpress_sites }}"
+wordpress_git_url: git@git.sakema.net:MIHE/mayapur-institute.git
+
+#WP admin setting
+wordpress_admin_user: "admin"
+wordpress_admin_user_pass: "ccZQfWNUlTuqr"
+wordpress_admin_email: "einomrah@gmail.com"
+
+#WP DB setting
+wordpress_db_name: "mayapurinstitute"
+wordpress_db_user: "mayapurinstitute"
+wordpress_db_user_pass: "GcZSozmB1R11Em9"
+wordpress_db_prefix: wp_

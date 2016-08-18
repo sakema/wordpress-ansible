@@ -1,0 +1,36 @@
+---
+#Connect setting
+ansible_ssh_host: 82.196.15.251
+ansible_ssh_port: 22
+ansible_ssh_user: root
+
+#Project setting
+wordpress_sites: sashaunisex.com
+wordpress_home_url: "http://sashaunisex.com"
+wordpress_home_url_non_http: "sashaunisex.com"
+wordpress_site_title: "{{ wordpress_sites }}"
+remote_wordpress_dir: "{{ www_root }}/{{ wordpress_sites }}"
+wordpress_git_url: git@git.sakema.net:hurma/sasha-unisex.com.git
+
+#MySQL setting
+mysql_root_user: root
+mysql_root_password: ZGWMtF08zaY1MMvw
+
+#WP admin setting
+wordpress_admin_user: "admin"
+wordpress_admin_user_pass: "6aHgpJdREIF1INy"
+wordpress_admin_email: "lettertosasha@gmail.com"
+
+#WP DB setting
+wordpress_db_name: "sashaunisex"
+wordpress_db_user: "sashaunisex"
+wordpress_db_user_pass: "1GrNZZZGWMt"
+wordpress_db_prefix: wp_
+
+#mail
+ssmtp_auth_user: "contact@healthyboat.ru"
+ssmtp_auth_pass: "ZlACu6KoZkjoaGSYLMLmfAM1udTofsE"
+
+#ssl
+item.value.ssl.crt: "sashaunisex.com.crt"
+item.value.ssl.key: "sashaunisex.com.key"

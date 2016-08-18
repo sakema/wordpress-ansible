@@ -3,9 +3,4 @@
   user: root
 
   roles:
-#    - wordpress-reset
-#    - wordpress-install
-#    - optimages
-#    - common
-#    - memcached
-#    - speedpage
+    - wordpress-install
